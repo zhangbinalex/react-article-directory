@@ -14,11 +14,6 @@ import Diretory from 'react-article-directory'
           style={{topAbs:350,topFix:30}}
 />
 ```
-## example
-<p align="center">
-  <img width="500"src="https://thumbnail0.baidupcs.com/thumbnail/107f04b4978ada84f1cc0629a9114414?fid=286227274-250528-734004916999636&time=1506330000&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-wUcr64y9VBXjRJeiXwyymKzSuYs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=6209046211437658783&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video">
-</p>  
-
 ## attention
 为保证article-directory-react可以正常工作，请保证它的上级元素没有定位属性。
 # Options  
