@@ -1,0 +1,33 @@
+{
+  "name": "react-article-directory",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test",
+    "build": "babel src -d lib",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangbinalex/react-article-directory.git"
+  },
+  "author": "zhangbinalex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhangbinalex/react-article-directory/issues"
+  },
+  "homepage": "https://github.com/zhangbinalex/react-article-directory#readme",
+  "dependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}

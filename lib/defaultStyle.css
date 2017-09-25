@@ -1,0 +1,40 @@
+html,body{
+  height: 100%;
+}
+.directory{
+  text-align: left;
+  list-style: none;
+  padding: 10px;
+  border-top:1px solid rgb(233,233,233);
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.directory li{
+    color: rgb(200,200,200);
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 25px;
+    margin-top: 5px;
+    font-size: 14px;
+    padding-left: 8px;
+    /*&:not(:first-child){
+      &:hover{
+        background: rgb(243,243,243);
+        color: rgb(16,142,233);
+      }
+    }*/
+}
+.directory li:not(:first-child):hover{
+  background: rgb(243,243,243);
+  color: rgb(16,142,233);
+}
+.directory .directoryActive{
+  background: rgb(243,243,243);
+  color: rgb(16,142,233);
+}
+.directory .directoryTitle{
+  font-size: 18px;
+  color: rgb(120,120,120);
+  margin-bottom: 20px;
+}
