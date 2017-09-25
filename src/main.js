@@ -1,5 +1,7 @@
 import  React from  'react'
+import PropTypes from 'prop-types';
 import styles from './defaultStyle.css'
+const defaultTopAbs=100,defaultTopFix=30,defaultLeft=100,defaultWidth=250;
 class ArticleDirectory extends React.Component{
   constructor(props){
     super(props);
@@ -11,29 +13,39 @@ class ArticleDirectory extends React.Component{
     }
   }
   componentDidMount(){
-    const criticalValue=this.props.style.topAbs-this.props.style.topFix;
+    const topsAbs=this.props.style.topAbs||defaultTopAbs,
+          topFix=this.props.style.topFix||defaultTopFix;
+    const criticalValue=topsAbs-topFix;
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     this.setState({directoryPos:scrollTop>=criticalValue?'fixed':'absolute'});
     window.addEventListener('scroll',this.handleScroll);
     this.getDirectoryInfo()
   }
+  componentWillReceiveProps(newProps){
+      if(newProps.refresh!==this.props.refresh){
+          this.getDirectoryInfo();
+      }
+  }
   componentWillUnmount(){
     window.removeEventListener('scroll',this.handleScroll)
   }
   getDirectoryInfo=()=>{
-    const id=this.props.id;
-    const offset=this.props.offset||0;
-    const selector=this.props.selector||'h1';
-    const directoryArr=document.getElementById(id).getElementsByTagName(selector);
-    const directoryList=this.state.directoryList;
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    for (let i=0;i< directoryArr.length;i++){
-      directoryList.push({label:directoryArr[i].innerText,scrollTop:parseInt(directoryArr[i].getBoundingClientRect().top+scrollTop-offset)})
-    }
-    this.setState({directoryList})
-  };
+      const id=this.props.id;
+      const offset=this.props.offset||0;
+      const selector=this.props.selector||'h1';
+      if(document.getElementById(id)){
+          const directoryArr=document.getElementById(id).getElementsByTagName(selector);
+          const directoryList=[];
+          const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          for (let i=0;i< directoryArr.length;i++){
+              directoryList.push({label:directoryArr[i].innerText,scrollTop:parseInt(directoryArr[i].getBoundingClientRect().top+scrollTop-offset)});
+          }
+          this.setState({directoryList,directoryArr})
+      }};
   handleScroll=()=>{
-    const criticalValue=this.props.style.topAbs-this.props.style.topFix;
+    const topsAbs=this.props.style.topAbs||defaultTopAbs,
+          topFix=this.props.style.topFix||defaultTopFix;
+    const criticalValue=topsAbs-topFix;
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const directoryList=this.state.directoryList;
 
@@ -65,11 +77,6 @@ class ArticleDirectory extends React.Component{
       let top= document.body.scrollTop||document.documentElement.scrollTop;
       let speed=scrolltop-top>0?Math.ceil((scrolltop-top)/12):Math.floor((scrolltop-top)/12);
       top+=speed;
-      console.log(document.body.clientHeight)
-/*
-      console.log(document.body.scrollHeight||document.documentElement.scrollHeight,document.body.clientHeight||document.documentElement.clientHeight)
-*/    console.log(scrolltop-top)
-      console.log(top,maxTop,speed)
       document.body.scrollTop=document.documentElement.scrollTop=top;
       if(top===scrolltop||top>=maxTop){
         this.setState({sliding:false});
@@ -83,15 +90,15 @@ class ArticleDirectory extends React.Component{
     const title=this.props.title||'Directory';
     const absStyle={
       position:'absolute',
-      top:containerStyle.topAbs||100,
-      left:containerStyle.left||100,
-      width:containerStyle.width||250
+      top:containerStyle.topAbs||defaultTopAbs,
+      left:containerStyle.left||defaultLeft,
+      width:containerStyle.width||defaultWidth
     };
     const fixStyle={
       position:'fixed',
-      top:containerStyle.topFix||30,
-      left:containerStyle.left||100,
-      width:containerStyle.width||250
+      top:containerStyle.topFix||defaultTopFix,
+      left:containerStyle.left||defaultLeft,
+      width:containerStyle.width||defaultWidth
     };
     return (
       <ul
@@ -111,4 +118,13 @@ class ArticleDirectory extends React.Component{
     )
   }
 }
+ArticleDirectory.propTypes={
+    id:PropTypes.string,
+    selector:PropTypes.string,
+    title:PropTypes.string,
+    style:PropTypes.object,
+    itemStyle:PropTypes.object,
+    offset:PropTypes.number
+}
+
 export default ArticleDirectory
