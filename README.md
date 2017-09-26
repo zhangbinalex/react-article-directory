@@ -7,9 +7,9 @@ article-directory-react是一个简单实用的react组件，只需要提供文�
 ```
 2 引入并在render中渲染
 ```js
-import Diretory from 'react-article-directory'
+import Directory from 'react-article-directory'
 
-<Diretory
+<Directory
           id="article"
           style={{topAbs:350,topFix:30}}
 />
